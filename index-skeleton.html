@@ -33,12 +33,34 @@
     <!-- Include any other third-party JS -->
 
     <script>
-        $(document).ready(function() {
-    
-            // Function to fetch data and populate the table
-            // This can be in a separate file or embedded here
+    $(document).ready(function () {
 
-        });
-    </script>
+        // Function to fetch data and populate the table
+        // This can be in a separate file or embedded here
+
+      $.ajax({
+        url: 'https://jsonplaceholder.typicode.com/todos',
+        method: 'GET',
+        success: function (todos) {
+          const tbody = $('#dataTable tbody');
+          todos.forEach(todo => {
+            const row = `
+              <tr>
+                <td data-label="ID">${todo.id}</td>
+                <td data-label="Title">${todo.title}</td>
+                <td data-label="Completed">${todo.completed ? 'Yes' : 'No'}</td>
+              </tr>
+            `;
+            tbody.append(row);
+          });
+        },
+        error: function () {
+          alert('Failed to fetch todo items');
+        }
+      });
+    });
+  </script>
+
+
 </body>
 </html>
